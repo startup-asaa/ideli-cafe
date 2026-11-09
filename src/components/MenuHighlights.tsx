@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './MenuHighlights.css'
 
+const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
+
 interface MenuItem {
   name: string
   price: string
@@ -12,47 +14,48 @@ interface MenuItem {
 
 const items: MenuItem[] = [
   {
-    name: 'Masala Dosa',
-    price: '₹120',
-    description: 'Crisp golden crepe filled with spiced potato masala, served with sambar & chutneys.',
+    name: 'Ghee Podi Masala Dosa',
+    price: '₹130',
+    description: 'Crispy golden dosa roasted in pure ghee and spiced gunpowder podi with potato masala.',
     emoji: '🥞',
     tag: 'Bestseller',
     category: 'Dosa',
   },
   {
-    name: 'Idli Sambar',
-    price: '₹80',
-    description: 'Soft steamed rice cakes with piping hot sambar and fresh coconut chutney.',
+    name: 'Thattu Idli Sambar',
+    price: '₹75',
+    description: 'Signature steaming soft thattu idlis served with hot sambar and fresh coconut chutney.',
     emoji: '🍚',
+    tag: 'Must Try',
     category: 'Tiffin',
   },
   {
     name: 'Filter Coffee',
-    price: '₹60',
-    description: 'Strong, aromatic South Indian filter coffee brewed with freshly ground beans.',
+    price: '₹40',
+    description: 'Strong, aromatic South Indian filter coffee brewed with freshly roasted beans and frothed milk.',
     emoji: '☕',
     tag: 'Signature',
     category: 'Beverages',
   },
   {
     name: 'Ghee Pongal',
-    price: '₹100',
-    description: 'Creamy rice and lentil dish tempered with cumin, pepper, and generous ghee.',
+    price: '₹95',
+    description: 'Creamy rice and moong lentil dish generously tempered with cashews, cumin, and pepper.',
     emoji: '🍲',
     category: 'Tiffin',
   },
   {
-    name: 'Mysore Masala Dosa',
+    name: 'Garlic Masala Dosa',
     price: '₹140',
-    description: 'Dosa brushed with spicy red chutney and filled with seasoned potato masala.',
+    description: 'Crisp crepe layered with rich garlic chutney spread and spiced potato stuffing.',
     emoji: '🌶️',
-    tag: 'Spicy',
+    tag: 'Chef Special',
     category: 'Dosa',
   },
   {
-    name: 'Medu Vada',
-    price: '₹70',
-    description: 'Crispy, golden urad dal fritters — crunchy outside, fluffy inside.',
+    name: 'Crispy Medu Vada',
+    price: '₹55',
+    description: 'Golden-fried spiced lentil donuts — crackling crisp outside, cloud-soft inside.',
     emoji: '🍩',
     category: 'Tiffin',
   },
@@ -109,9 +112,14 @@ export default function MenuHighlights() {
       </div>
 
       <div className="menu-highlights__cta">
-        <a href="#menu" className="menu-highlights__btn">
-          View Full Menu
-          <span className="menu-highlights__btn-arrow">→</span>
+        <a
+          href={SWIGGY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="menu-highlights__btn"
+        >
+          View Full Menu on Swiggy
+          <span className="menu-highlights__btn-arrow">↗</span>
         </a>
       </div>
     </section>

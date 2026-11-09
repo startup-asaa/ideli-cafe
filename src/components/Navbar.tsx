@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './Navbar.css'
 
+const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -51,8 +53,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a href="#locations" className="navbar__cta">
-              Visit Us
+            <a
+              href={SWIGGY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__cta"
+            >
+              Order Online ↗
             </a>
           </nav>
 
@@ -72,7 +79,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile overlay - outside header to avoid backdrop-filter clipping/containing-block bug */}
+      {/* Mobile overlay */}
       <nav
         className={`navbar__overlay ${
           menuOpen ? 'navbar__overlay--open' : ''
@@ -92,11 +99,13 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#locations"
+            href={SWIGGY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="navbar__overlay-cta"
             onClick={closeMenu}
           >
-            Visit Us
+            Order on Swiggy ↗
           </a>
         </div>
       </nav>

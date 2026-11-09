@@ -55,6 +55,15 @@
   color: var(--green-400);
 }
 
+.footer__link--highlight {
+  color: var(--green-400);
+  font-weight: 600;
+}
+
+.footer__link--highlight:hover {
+  color: var(--green-300);
+}
+
 .footer__contact-item {
   font-size: 0.88rem;
   color: rgba(255, 255, 255, 0.4);
