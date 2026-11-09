@@ -14,7 +14,9 @@ export default function Navbar() {
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
@@ -27,60 +29,77 @@ export default function Navbar() {
   ]
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="navbar__inner">
-        <a href="#hero" className="navbar__logo" onClick={closeMenu}>
-          <img
-            src="/LogoQ.png"
-            alt="i'DELI CAFE logo"
-            className="navbar__logo-img"
-          />
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="navbar__nav" aria-label="Main navigation">
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className="navbar__link">
-              {link.label}
-            </a>
-          ))}
-          <a href="#locations" className="navbar__cta">
-            Visit Us
+    <>
+      <header
+        className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${
+          menuOpen ? 'navbar--menu-open' : ''
+        }`}
+      >
+        <div className="navbar__inner">
+          <a href="#hero" className="navbar__logo" onClick={closeMenu}>
+            <img
+              src="/LogoQ.png"
+              alt="i'DELI CAFE logo"
+              className="navbar__logo-img"
+            />
           </a>
-        </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          className={`navbar__hamburger ${menuOpen ? 'navbar__hamburger--open' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+          {/* Desktop nav */}
+          <nav className="navbar__nav" aria-label="Main navigation">
+            {links.map((link) => (
+              <a key={link.href} href={link.href} className="navbar__link">
+                {link.label}
+              </a>
+            ))}
+            <a href="#locations" className="navbar__cta">
+              Visit Us
+            </a>
+          </nav>
 
-        {/* Mobile overlay */}
-        <nav
-          className={`navbar__overlay ${menuOpen ? 'navbar__overlay--open' : ''}`}
-          aria-label="Mobile navigation"
-        >
+          {/* Mobile hamburger */}
+          <button
+            className={`navbar__hamburger ${
+              menuOpen ? 'navbar__hamburger--open' : ''
+            }`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile overlay - outside header to avoid backdrop-filter clipping/containing-block bug */}
+      <nav
+        className={`navbar__overlay ${
+          menuOpen ? 'navbar__overlay--open' : ''
+        }`}
+        aria-label="Mobile navigation"
+      >
+        <div className="navbar__overlay-content">
+          <span className="navbar__overlay-tag">Pure Veg · South Indian</span>
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="navbar__link"
+              className="navbar__overlay-link"
               onClick={closeMenu}
             >
               {link.label}
             </a>
           ))}
-          <a href="#locations" className="navbar__cta" onClick={closeMenu}>
+          <a
+            href="#locations"
+            className="navbar__overlay-cta"
+            onClick={closeMenu}
+          >
             Visit Us
           </a>
-        </nav>
-      </div>
-    </header>
+        </div>
+      </nav>
+    </>
   )
 }
