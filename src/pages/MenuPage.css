@@ -1,0 +1,291 @@
+/* ===== Dedicated Menu Page ===== */
+.menu-page {
+  min-height: 100vh;
+  background-color: var(--white);
+}
+
+/* Header - seamlessly extends under fixed navbar */
+.menu-page__hero {
+  background-color: var(--green-950);
+  color: var(--white);
+  padding: clamp(8.5rem, 14vw, 11.5rem) 1.5rem clamp(3.5rem, 6vw, 5rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-page__hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 45%, rgba(22, 101, 52, 0.45), transparent 60%),
+    radial-gradient(ellipse at 75% 55%, rgba(34, 197, 94, 0.18), transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(5, 46, 22, 0.6), transparent 60%);
+  z-index: 1;
+}
+
+.menu-page__hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.menu-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.menu-page__title em {
+  font-style: italic;
+  color: var(--green-300);
+}
+
+.menu-page__desc {
+  font-family: var(--font-accent);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Category Filter Bar (Sticky below navbar) */
+.menu-page__nav {
+  position: sticky;
+  top: 64px;
+  z-index: 100;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.menu-page__nav-inner {
+  width: var(--container-width);
+  margin: 0 auto;
+  padding: 0.85rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.menu-page__nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-page__chip {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.55rem 1.15rem;
+  border-radius: 100px;
+  border: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+  color: var(--gray-600);
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.menu-page__chip:hover {
+  background-color: var(--green-50);
+  color: var(--green-800);
+  border-color: var(--green-300);
+}
+
+.menu-page__chip--active {
+  background-color: var(--green-800);
+  color: var(--white);
+  border-color: var(--green-800);
+}
+
+.menu-page__chip--active:hover {
+  background-color: var(--green-900);
+  color: var(--white);
+}
+
+.menu-page__chip-count {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+/* Main Content Area */
+.menu-page__main {
+  width: var(--container-width);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(4rem, 6vw, 6rem);
+}
+
+.menu-page__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.menu-page__status-text {
+  font-size: 0.92rem;
+  color: var(--gray-500);
+}
+
+.menu-page__status-text strong {
+  color: var(--gray-900);
+}
+
+.menu-page__swiggy-pill {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-700);
+  background-color: var(--green-50);
+  border: 1px solid var(--green-200);
+  padding: 0.4rem 0.95rem;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-base);
+}
+
+.menu-page__swiggy-pill:hover {
+  background-color: var(--green-700);
+  color: var(--white);
+  border-color: var(--green-700);
+}
+
+/* Menu Grid */
+.menu-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.75rem;
+}
+
+.menu-item-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--green-300);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.menu-item-card__media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  background-color: var(--green-100);
+  overflow: hidden;
+}
+
+.menu-item-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.menu-item-card:hover .menu-item-card__img {
+  transform: scale(1.06);
+}
+
+.menu-item-card__veg {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 18px;
+  height: 18px;
+  background: var(--white);
+  border: 1.5px solid var(--green-600);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-card__veg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--green-600);
+}
+
+.menu-item-card__category {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-800);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+}
+
+.menu-item-card__body {
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.menu-item-card__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.45rem;
+  line-height: 1.3;
+}
+
+.menu-item-card__desc {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .menu-page__nav {
+    top: 60px;
+  }
+
+  .menu-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .menu-page__status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}

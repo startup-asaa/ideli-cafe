@@ -1,7 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './MenuHighlights.css'
-
-const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
 
 interface HighlightItem {
   id: string
@@ -106,7 +105,7 @@ export default function MenuHighlights() {
   return (
     <section className="menu-highlights" id="menu">
       <div className="menu-highlights__header container">
-        <span className="menu-highlights__label">Our Menu</span>
+        <span className="menu-highlights__label">Chef Highlights</span>
         <h2 className="menu-highlights__title">
           Crafted with <em>care</em>,<br />served with soul
         </h2>
@@ -150,15 +149,10 @@ export default function MenuHighlights() {
       </div>
 
       <div className="menu-highlights__cta">
-        <a
-          href={SWIGGY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="menu-highlights__btn"
-        >
-          View Full Menu on Swiggy
-          <span className="menu-highlights__btn-arrow">↗</span>
-        </a>
+        <Link to="/menu" className="menu-highlights__btn">
+          Explore Full Menu (130+ Dishes)
+          <span className="menu-highlights__btn-arrow">→</span>
+        </Link>
       </div>
     </section>
   )

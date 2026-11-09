@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
 const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
@@ -10,11 +11,13 @@ export default function Footer() {
       <div className="footer__inner">
         {/* Brand */}
         <div>
-          <img
-            src="/LogoQ.png"
-            alt="i'DELI CAFE"
-            className="footer__brand-logo"
-          />
+          <Link to="/">
+            <img
+              src="/LogoQ.png"
+              alt="i'DELI CAFE"
+              className="footer__brand-logo"
+            />
+          </Link>
           <p className="footer__brand-desc">
             Authentic South Indian pure vegetarian cuisine in Kochi,
             prepared fresh daily with pure ingredients and traditional recipes.
@@ -25,10 +28,10 @@ export default function Footer() {
         <div>
           <h4 className="footer__heading">Explore</h4>
           <nav className="footer__links">
-            <a href="#hero" className="footer__link">Home</a>
-            <a href="#about" className="footer__link">Our Story</a>
-            <a href="#menu" className="footer__link">Menu</a>
-            <a href="#locations" className="footer__link">Locations</a>
+            <Link to="/" className="footer__link">Home</Link>
+            <a href="/#about" className="footer__link">Our Story</a>
+            <Link to="/menu" className="footer__link">Full Menu</Link>
+            <a href="/#locations" className="footer__link">Locations</a>
             <a
               href={SWIGGY_URL}
               target="_blank"

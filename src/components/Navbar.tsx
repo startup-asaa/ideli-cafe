@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
@@ -6,6 +7,8 @@ const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -23,11 +26,12 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false)
 
+  // Navigation targets
   const links = [
-    { label: 'Home', href: '#hero' },
-    { label: 'About', href: '#about' },
-    { label: 'Menu', href: '#menu' },
-    { label: 'Locations', href: '#locations' },
+    { label: 'Home', to: '/', isInternal: true },
+    { label: 'Menu', to: '/menu', isInternal: true },
+    { label: 'About', to: isHomePage ? '#about' : '/#about', isInternal: false },
+    { label: 'Locations', to: isHomePage ? '#locations' : '/#locations', isInternal: false },
   ]
 
   return (
@@ -38,21 +42,37 @@ export default function Navbar() {
         }`}
       >
         <div className="navbar__inner">
-          <a href="#hero" className="navbar__logo" onClick={closeMenu}>
+          <Link to="/" className="navbar__logo" onClick={closeMenu}>
             <img
               src="/LogoQ.png"
               alt="i'DELI CAFE logo"
               className="navbar__logo-img"
             />
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="navbar__nav" aria-label="Main navigation">
-            {links.map((link) => (
-              <a key={link.href} href={link.href} className="navbar__link">
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) =>
+              link.isInternal ? (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="navbar__link"
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.to}
+                  className="navbar__link"
+                  onClick={closeMenu}
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <a
               href={SWIGGY_URL}
               target="_blank"
@@ -88,16 +108,27 @@ export default function Navbar() {
       >
         <div className="navbar__overlay-content">
           <span className="navbar__overlay-tag">Pure Veg · South Indian</span>
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="navbar__overlay-link"
-              onClick={closeMenu}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.isInternal ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                className="navbar__overlay-link"
+                onClick={closeMenu}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.to}
+                className="navbar__overlay-link"
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <a
             href={SWIGGY_URL}
             target="_blank"
