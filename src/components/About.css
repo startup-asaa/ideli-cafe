@@ -127,6 +127,10 @@
     aspect-ratio: 16 / 10;
   }
 
+  .about__image {
+    object-position: center 20%;
+  }
+
   .about__accent {
     display: none;
   }
