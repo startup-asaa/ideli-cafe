@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { menuCategories, menuItems, type MenuItem } from '../data/menuData'
 import './MenuPage.css'
 
@@ -6,11 +6,80 @@ const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831
 
 export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const navRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  // Drag-to-scroll state
+  const isDraggingRef = useRef(false)
+  const startXRef = useRef(0)
+  const scrollLeftRef = useRef(0)
+  const draggedDistanceRef = useRef(0)
 
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  // Check scroll position to show/hide left & right arrows
+  const checkScroll = () => {
+    if (!navRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = navRef.current
+    setCanScrollLeft(scrollLeft > 6)
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 6)
+  }
+
+  useEffect(() => {
+    checkScroll()
+    window.addEventListener('resize', checkScroll)
+    return () => window.removeEventListener('resize', checkScroll)
+  }, [])
+
+  // Arrow button click handler
+  const scrollNav = (amount: number) => {
+    if (navRef.current) {
+      navRef.current.scrollBy({ left: amount, behavior: 'smooth' })
+    }
+  }
+
+  // Mouse wheel horizontal scroll (desktop mice)
+  const handleWheel = (e: React.WheelEvent) => {
+    if (navRef.current) {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        navRef.current.scrollLeft += e.deltaY * 0.9
+        checkScroll()
+      }
+    }
+  }
+
+  // Mouse drag-to-scroll handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!navRef.current) return
+    isDraggingRef.current = true
+    startXRef.current = e.pageX - navRef.current.offsetLeft
+    scrollLeftRef.current = navRef.current.scrollLeft
+    draggedDistanceRef.current = 0
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current || !navRef.current) return
+    e.preventDefault()
+    const x = e.pageX - navRef.current.offsetLeft
+    const walk = (x - startXRef.current) * 1.4
+    draggedDistanceRef.current = Math.abs(walk)
+    navRef.current.scrollLeft = scrollLeftRef.current - walk
+    checkScroll()
+  }
+
+  const handleMouseUpOrLeave = () => {
+    isDraggingRef.current = false
+  }
+
+  // Prevent chip click if user was dragging
+  const handleChipClick = (catId: string) => {
+    if (draggedDistanceRef.current > 6) return
+    setSelectedCategory(catId)
+  }
 
   // Calculate item count per category
   const categoryCounts = useMemo(() => {
@@ -49,39 +118,72 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Sticky Category Chips */}
+      {/* Sticky Category Chips with Desktop & Mobile Scroll Controls */}
       <nav className="menu-page__nav" aria-label="Menu categories">
-        <div className="menu-page__nav-inner">
-          <button
-            type="button"
-            className={`menu-page__chip ${
-              selectedCategory === 'all' ? 'menu-page__chip--active' : ''
-            }`}
-            onClick={() => setSelectedCategory('all')}
-          >
-            All Dishes
-            <span className="menu-page__chip-count">
-              ({categoryCounts['all'] || 0})
-            </span>
-          </button>
+        <div className="menu-page__nav-container">
+          {canScrollLeft && (
+            <button
+              type="button"
+              className="menu-page__nav-arrow menu-page__nav-arrow--left"
+              onClick={() => scrollNav(-280)}
+              aria-label="Scroll categories left"
+            >
+              ‹
+            </button>
+          )}
 
-          {menuCategories.map((cat) => {
-            const count = categoryCounts[cat.id] || 0
-            if (count === 0) return null
-            return (
-              <button
-                type="button"
-                key={cat.id}
-                className={`menu-page__chip ${
-                  selectedCategory === cat.id ? 'menu-page__chip--active' : ''
-                }`}
-                onClick={() => setSelectedCategory(cat.id)}
-              >
-                {cat.name}
-                <span className="menu-page__chip-count">({count})</span>
-              </button>
-            )
-          })}
+          <div
+            className="menu-page__nav-inner"
+            ref={navRef}
+            onScroll={checkScroll}
+            onWheel={handleWheel}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUpOrLeave}
+            onMouseLeave={handleMouseUpOrLeave}
+          >
+            <button
+              type="button"
+              className={`menu-page__chip ${
+                selectedCategory === 'all' ? 'menu-page__chip--active' : ''
+              }`}
+              onClick={() => handleChipClick('all')}
+            >
+              All Dishes
+              <span className="menu-page__chip-count">
+                ({categoryCounts['all'] || 0})
+              </span>
+            </button>
+
+            {menuCategories.map((cat) => {
+              const count = categoryCounts[cat.id] || 0
+              if (count === 0) return null
+              return (
+                <button
+                  type="button"
+                  key={cat.id}
+                  className={`menu-page__chip ${
+                    selectedCategory === cat.id ? 'menu-page__chip--active' : ''
+                  }`}
+                  onClick={() => handleChipClick(cat.id)}
+                >
+                  {cat.name}
+                  <span className="menu-page__chip-count">({count})</span>
+                </button>
+              )
+            })}
+          </div>
+
+          {canScrollRight && (
+            <button
+              type="button"
+              className="menu-page__nav-arrow menu-page__nav-arrow--right"
+              onClick={() => scrollNav(280)}
+              aria-label="Scroll categories right"
+            >
+              ›
+            </button>
+          )}
         </div>
       </nav>
 
