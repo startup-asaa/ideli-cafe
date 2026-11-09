@@ -56,34 +56,10 @@
   border: 1px solid var(--gray-200);
   border-radius: 6px;
   padding: 2.25rem;
-  transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.location-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--green-400), var(--green-600));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-base);
-}
-
-.location-card:hover::before {
-  transform: scaleX(1);
-}
-
-.location-card:hover {
-  border-color: var(--green-300);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
 }
 
 .location-card__top {
