@@ -1,0 +1,140 @@
+/* ===== Locations Section ===== */
+.locations {
+  padding: var(--section-padding) 0;
+  background-color: var(--white);
+}
+
+.locations__header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.locations__label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green-600);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.locations__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.locations__title em {
+  font-style: italic;
+  color: var(--green-700);
+}
+
+.locations__grid {
+  width: var(--container-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.location-card {
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  padding: 2rem;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.location-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-400), var(--green-600));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.location-card:hover::before {
+  transform: scaleX(1);
+}
+
+.location-card:hover {
+  border-color: var(--green-200);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.location-card__icon {
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.location-card__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.75rem;
+}
+
+.location-card__address {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.location-card__hours {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  margin-bottom: 1.5rem;
+}
+
+.location-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--green-500);
+}
+
+.location-card__link {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap var(--transition-base);
+}
+
+.location-card:hover .location-card__link {
+  gap: 0.7rem;
+}
+
+@media (max-width: 1024px) {
+  .locations__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .locations__grid {
+    grid-template-columns: 1fr;
+  }
+}
