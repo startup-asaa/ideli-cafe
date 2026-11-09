@@ -3,65 +3,98 @@ import './MenuHighlights.css'
 
 const SWIGGY_URL = 'https://www.swiggy.com/city/kochi/i-deli-cafe-kaloor-rest831935'
 
-interface MenuItem {
+interface HighlightItem {
+  id: string
   name: string
   price: string
   description: string
-  emoji: string
+  image: string
   tag?: string
   category: string
 }
 
-const items: MenuItem[] = [
+const items: HighlightItem[] = [
   {
+    id: '1',
     name: 'Ghee Podi Masala Dosa',
     price: '₹130',
-    description: 'Crispy golden dosa roasted in pure ghee and spiced gunpowder podi with potato masala.',
-    emoji: '🥞',
+    description: 'Golden-crisp dosa roasted in aromatic ghee and spiced gunpowder podi, folded with potato masala.',
+    image: '/assets/categories/dosanew/ghee_podi_masala_dosa.jpg',
     tag: 'Bestseller',
     category: 'Dosa',
   },
   {
-    name: 'Thattu Idli Sambar',
+    id: '2',
+    name: 'Ghee Podi Thattu Idli',
     price: '₹75',
-    description: 'Signature steaming soft thattu idlis served with hot sambar and fresh coconut chutney.',
-    emoji: '🍚',
+    description: 'Steaming hot thattu idli bathed in pure desi ghee and fiery karam podi, served with chutneys.',
+    image: '/assets/categories/idli/ghee_podi_thattu_idli.jpg',
     tag: 'Must Try',
-    category: 'Tiffin',
+    category: 'Idli',
   },
   {
-    name: 'Filter Coffee',
+    id: '3',
+    name: 'South Indian Filter Coffee',
     price: '₹40',
-    description: 'Strong, aromatic South Indian filter coffee brewed with freshly roasted beans and frothed milk.',
-    emoji: '☕',
+    description: 'Signature decoction brewed with fresh chicory blend and frothy milk in traditional davarah.',
+    image: '/assets/categories/hotbeve/Coffee.jpg',
     tag: 'Signature',
     category: 'Beverages',
   },
   {
-    name: 'Ghee Pongal',
-    price: '₹95',
-    description: 'Creamy rice and moong lentil dish generously tempered with cashews, cumin, and pepper.',
-    emoji: '🍲',
-    category: 'Tiffin',
-  },
-  {
-    name: 'Garlic Masala Dosa',
+    id: '4',
+    name: 'Benne Masala Dosa',
     price: '₹140',
-    description: 'Crisp crepe layered with rich garlic chutney spread and spiced potato stuffing.',
-    emoji: '🌶️',
-    tag: 'Chef Special',
+    description: 'Crisp Davangere-style butter dosa with spicy red chutney spread and soft potato filling.',
+    image: '/assets/categories/dosanew/benne_masala_dosa.jpg',
+    tag: 'Special',
     category: 'Dosa',
   },
   {
-    name: 'Crispy Medu Vada',
-    price: '₹55',
-    description: 'Golden-fried spiced lentil donuts — crackling crisp outside, cloud-soft inside.',
-    emoji: '🍩',
-    category: 'Tiffin',
+    id: '5',
+    name: 'Crispy Medu Vada Set',
+    price: '₹60',
+    description: 'Crunchy golden urad dal fritters served with hot vegetable sambar and coconut chutney.',
+    image: '/assets/categories/snacks/vadaset.jpg',
+    category: 'Snacks',
+  },
+  {
+    id: '6',
+    name: 'South Indian Mini Meals',
+    price: '₹120',
+    description: 'Wholesome pure veg platter with rice, sambar, rasam, curd, thoran, pickle, and papadam.',
+    image: '/assets/categories/meals/Minimeals.jpg',
+    tag: 'Lunch Hit',
+    category: 'Meals',
+  },
+  {
+    id: '7',
+    name: 'Mini Ghee Idli Sambar Dip',
+    price: '₹85',
+    description: 'Bite-sized button idlis soaked in bubbling hot spiced sambar with a spoonful of pure ghee.',
+    image: '/assets/categories/idli/mini_idli_sambar.jpg',
+    category: 'Idli',
+  },
+  {
+    id: '8',
+    name: 'Golden Pazham Pori',
+    price: '₹45',
+    description: 'Traditional Kerala-style ripe banana fritters — crisp on edges, sweet and melt-in-mouth inside.',
+    image: '/assets/categories/snacks/pazhampori.jpg',
+    tag: 'Evening Favorite',
+    category: 'Snacks',
+  },
+  {
+    id: '9',
+    name: 'Aromatic Badam Milk',
+    price: '₹65',
+    description: 'Rich, warming saffron-infused almond milk garnished with crunchy crushed nuts.',
+    image: '/assets/categories/hotbeve/Badammilk.jpg',
+    category: 'Beverages',
   },
 ]
 
-const categories = ['All', 'Dosa', 'Tiffin', 'Beverages']
+const categories = ['All', 'Dosa', 'Idli', 'Meals', 'Snacks', 'Beverages']
 
 export default function MenuHighlights() {
   const [active, setActive] = useState('All')
@@ -95,9 +128,14 @@ export default function MenuHighlights() {
 
       <div className="menu-highlights__grid">
         {filtered.map((item) => (
-          <article className="menu-card" key={item.name}>
+          <article className="menu-card" key={item.id}>
             <div className="menu-card__image">
-              <span className="menu-card__emoji">{item.emoji}</span>
+              <img
+                src={item.image}
+                alt={item.name}
+                className="menu-card__img"
+                loading="lazy"
+              />
               {item.tag && <span className="menu-card__tag">{item.tag}</span>}
             </div>
             <div className="menu-card__body">
