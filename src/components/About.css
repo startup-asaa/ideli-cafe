@@ -101,16 +101,29 @@
 }
 
 .about__value-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
   font-weight: 600;
-  color: var(--gray-800);
+  color: var(--gray-900);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about__value-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--green-600);
+  flex-shrink: 0;
 }
 
 .about__value-desc {
-  font-size: 0.85rem;
-  color: var(--gray-400);
-  line-height: 1.5;
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  line-height: 1.55;
+  padding-left: 0.85rem;
 }
 
 @media (max-width: 768px) {

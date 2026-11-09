@@ -38,25 +38,33 @@ export default function About() {
 
           <div className="about__values">
             <div className="about__value">
-              <span className="about__value-title">100% Vegetarian</span>
+              <span className="about__value-title">
+                <span className="about__value-dot" /> 100% Vegetarian
+              </span>
               <span className="about__value-desc">
                 Pure veg, always. No compromises.
               </span>
             </div>
             <div className="about__value">
-              <span className="about__value-title">Fresh Daily</span>
+              <span className="about__value-title">
+                <span className="about__value-dot" /> Fresh Daily
+              </span>
               <span className="about__value-desc">
                 Batters ground & prepared every morning.
               </span>
             </div>
             <div className="about__value">
-              <span className="about__value-title">Traditional Recipes</span>
+              <span className="about__value-title">
+                <span className="about__value-dot" /> Traditional Recipes
+              </span>
               <span className="about__value-desc">
                 Authentic flavours from family kitchens.
               </span>
             </div>
             <div className="about__value">
-              <span className="about__value-title">Filter Coffee</span>
+              <span className="about__value-title">
+                <span className="about__value-dot" /> Filter Coffee
+              </span>
               <span className="about__value-desc">
                 Brewed the old-fashioned way, strong & aromatic.
               </span>
