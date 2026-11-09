@@ -42,11 +42,13 @@
 .navbar__logo-img {
   height: 42px;
   width: auto;
-  transition: height var(--transition-base);
+  transition: height var(--transition-base), filter var(--transition-base);
 }
 
+/* When scrolled on white bg: turn the white logo → dark green */
 .navbar--scrolled .navbar__logo-img {
   height: 36px;
+  filter: brightness(0) saturate(100%) invert(21%) sepia(63%) saturate(1200%) hue-rotate(114deg) brightness(92%);
 }
 
 .navbar__logo-text {
@@ -63,13 +65,14 @@
   gap: 2.5rem;
 }
 
+/* Default state: transparent navbar over dark hero */
 .navbar__link {
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gray-600);
+  color: rgba(255, 255, 255, 0.85);
   transition: color var(--transition-base);
   position: relative;
 }
@@ -81,33 +84,57 @@
   left: 0;
   width: 0;
   height: 1.5px;
-  background-color: var(--green-600);
-  transition: width var(--transition-base);
+  background-color: var(--green-300);
+  transition: width var(--transition-base), background-color var(--transition-base);
 }
 
 .navbar__link:hover {
-  color: var(--green-700);
+  color: var(--white);
 }
 
 .navbar__link:hover::after {
   width: 100%;
 }
 
+/* Scrolled state: white bg, so links go dark */
+.navbar--scrolled .navbar__link {
+  color: var(--gray-600);
+}
+
+.navbar--scrolled .navbar__link::after {
+  background-color: var(--green-600);
+}
+
+.navbar--scrolled .navbar__link:hover {
+  color: var(--green-700);
+}
+
+/* Default state: light CTA on transparent navbar */
 .navbar__cta {
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--white);
-  background-color: var(--green-700);
+  color: var(--green-950);
+  background-color: var(--green-400);
   padding: 0.65rem 1.5rem;
   border-radius: 2px;
-  transition: background-color var(--transition-base), transform var(--transition-base);
+  transition: background-color var(--transition-base), transform var(--transition-base), color var(--transition-base);
 }
 
 .navbar__cta:hover {
-  background-color: var(--green-800);
+  background-color: var(--green-300);
   transform: translateY(-1px);
+}
+
+/* Scrolled state: darker CTA */
+.navbar--scrolled .navbar__cta {
+  background-color: var(--green-700);
+  color: var(--white);
+}
+
+.navbar--scrolled .navbar__cta:hover {
+  background-color: var(--green-800);
 }
 
 /* Hamburger */
@@ -123,9 +150,14 @@
   display: block;
   width: 24px;
   height: 2px;
-  background-color: var(--gray-700);
-  transition: transform var(--transition-base), opacity var(--transition-base);
+  background-color: var(--white);
+  transition: transform var(--transition-base), opacity var(--transition-base), background-color var(--transition-base);
   transform-origin: center;
+}
+
+.navbar--scrolled .navbar__hamburger span,
+.navbar__hamburger--open span {
+  background-color: var(--gray-700);
 }
 
 .navbar__hamburger--open span:nth-child(1) {
