@@ -7,12 +7,11 @@ export default function About() {
         {/* Left: Visual */}
         <div className="about__visual">
           <div className="about__image-frame">
-            <div className="about__image-inner">
-              <div className="about__image-icon">🌿</div>
-              <span className="about__image-label">
-                Rooted in tradition, served with love
-              </span>
-            </div>
+            <img
+              src="/ideli-cafe-1.jpg"
+              alt="i'DELI CAFE storefront with green neon signage and outdoor seating"
+              className="about__image"
+            />
           </div>
           <div className="about__accent" aria-hidden="true" />
         </div>
